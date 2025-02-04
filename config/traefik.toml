@@ -1,0 +1,26 @@
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+    [entryPoints.web.http.redirections.entryPoint]
+      to = "websecure"
+      scheme = "https"
+
+  [entryPoints.websecure]
+    address = ":443"
+
+[api]
+  dashboard = true
+
+[certificatesResolvers.lets-encrypt.acme]
+  email = "[email]"
+  storage = "acme.json"
+  [certificatesResolvers.lets-encrypt.acme.tlsChallenge]
+
+[providers.docker]
+  useBindPortIP = true
+  watch = true
+  network = "modapto"
+
+[providers.file]
+  filename = "traefik_dynamic.toml"
+

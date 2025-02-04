@@ -1,0 +1,19 @@
+services:
+  traefik:
+    image: "traefik:v2.9"
+    container_name: traefik
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "$PWD/config/traefik.toml:/traefik.toml"
+      - "$PWD/config/traefik_dynamic.toml:/traefik_dynamic.toml"
+      - "$PWD/certs/acme.json:/acme.json"
+    networks:
+      - modapto
+
+networks:
+  modapto:
+    driver: bridge
