@@ -62,13 +62,16 @@ For each new component that will de deployed through API Gateway we must define 
 
 ```sh
         - traefik.enable=true
-        - traefik.http.routers.[container-name]=true
+        - traefik.http.routers.[containerName]=true
         - traefik.http.routers.[containerName].rule=Host(`[desiredURLPath]`)
         - traefik.http.routers.[containerName].tls=true
         - traefik.http.routers.[containerName].tls.certresolver=lets-encrypt
         - traefik.http.middlewares.securityHeader.headers.sslredirect=true
         - traefik.http.routers.[containerName].middlewares=securityHeader
         - traefik.http.services.notification-center.loadbalancer.server.port=[containerPort]
+
+        # Optionally we can configure a PathPrefix in the Host Role
+        - traefik.http.routers.[containerName].rule=Host(`[desiredURLPath]`) && PathPrexix(`[desiredPathPreix]`)
 ```
 
 ## LICENSE
